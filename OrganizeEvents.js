@@ -19,18 +19,21 @@ function adicionarCampoDataHora() {
 
 function formatarDataHora() {
     eventos.forEach(item => {
-        const [horas, minutos] = item.hora.split(':');
+        const [horas, minutos] = item.hora.split(':').map(Number);;
+        const minutoFormatado = String(minutos).padStart(2, "0");
+        const horaFormatada = String(horas).padStart(2, "0");
+        
         // ========== Data timestamp - segundos e milissegundos ========== 
         const timestamp = Number(item.data);
         if (!Number.isNaN(timestamp)) {
             const tamanhoSringTimestamp = String(Math.trunc(timestamp)).length;
             if (tamanhoSringTimestamp === 13) {
                 item.dataHora = new Date(timestamp);
-                item.dataHora.setHours(horas, minutos);
+                item.dataHora.setHours(horaFormatada, minutoFormatado);
                 item.dataHoraFormatoBr = item.dataHora.toLocaleString("pt-BR");
             } else if (tamanhoSringTimestamp === 10) {
                 item.dataHora = new Date(timestamp * 1000);
-                item.dataHora.setHours(horas, minutos);
+                item.dataHora.setHours(horaFormatada, minutoFormatado);
                 item.dataHoraFormatoBr = item.dataHora.toLocaleString("pt-BR");
             }
             return;
@@ -40,16 +43,14 @@ function formatarDataHora() {
         else if (typeof item.data === "string" && item.data.includes("/")) {
             const [dia, mes, ano] = item.data.split("/");
             
-
-            const newDate = `${ano}-${mes}-${dia}T${horas}:${minutos}` ;
-            item.dataHora = new Date(newDate);
+            item.dataHora =  new Date(`${ano}-${mes}-${dia}T${horaFormatada}:${minutoFormatado}`) ;
             item.dataHoraFormatoBr = item.dataHora.toLocaleString("pt-BR");
 
             return;
         }
 
         else {
-            item.dataHora = new Date(`${item.data}T${horas}:${minutos}`);
+            item.dataHora = new Date(`${item.data}T${horaFormatada}:${minutoFormatado}`);
             item.dataHoraFormatoBr = item.dataHora.toLocaleString("pt-BR");
         }
     });
@@ -83,9 +84,9 @@ export function listarEventosPorData(input_date) {
 
     const listaFiltrada = lista.filter(item => {
         return (
-            item.dataHora.getFullYear() === input_date.getFullYear() &&
-            item.dataHora.getMonth() === input_date.getMonth() &&
-            item.dataHora.getDate() === input_date.getDate()
+            item.dataHora.getFullYear() === data.getFullYear() &&
+            item.dataHora.getMonth() === data.getMonth() &&
+            item.dataHora.getDate() === data.getDate()
         )
     })
 
@@ -128,7 +129,24 @@ export function listarProximoEvento() {
 }
 
 
+// =============================================
+const lista = formatarDataHora();
+
+lista.forEach(item => {
+    console.log(
+        item.id, 
+        "=>",
+        item.nome,
+        "=>",
+        item.dataHora,
+        "=>",
+        item.dataHoraFormatoBr
+    );
+});
+
+
 adicionarCampoDataHora();
+formatarDataHora();
 //listarProximoEvento();
 //listarEventosPorData(new Date("aaaa"));
 //listarEventosPorData(new Date("2026-08-16"));
