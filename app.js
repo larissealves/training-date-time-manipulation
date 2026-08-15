@@ -94,8 +94,7 @@ function listarTodosEventos() {
 }
 
 function proximoEvento() {
-    const proximoEvento = listarProximoEvento();
-    const evento = proximoEvento[proximoEvento.length - 1];
+    const evento = listarProximoEvento();;
 
     const getDivEventName = document.getElementById("proximoEventoNome");
     const getDivEventDate = document.getElementById("proximoEventoData");

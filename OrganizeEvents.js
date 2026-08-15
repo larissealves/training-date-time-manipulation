@@ -22,7 +22,7 @@ function formatarDataHora() {
         const [horas, minutos] = item.hora.split(':').map(Number);;
         const minutoFormatado = String(minutos).padStart(2, "0");
         const horaFormatada = String(horas).padStart(2, "0");
-        
+
         // ========== Data timestamp - segundos e milissegundos ========== 
         const timestamp = Number(item.data);
         if (!Number.isNaN(timestamp)) {
@@ -96,36 +96,22 @@ export function listarEventosPorData(input_date) {
 
 export function listarProximoEvento() {
     const lista = listarEventosOrganizados();
-
-    const dataAtual = new Date();
-    const horaAtual = dataAtual.getHours() * 60 + dataAtual.getMinutes();
-
+   
     const listaFiltrada = lista.filter(item => {
-        const [horas, minutos] = item.hora.split(":").map(Number);
-        const horaEvento = horas * 60 + minutos;
-
         return (
-            item.dataHora.getFullYear() > dataAtual.getFullYear() ||
-
-            item.dataHora.getFullYear() === dataAtual.getFullYear()
-            &&
-            item.dataHora.getMonth() > dataAtual.getMonth() ||
-            
-            item.dataHora.getFullYear() === dataAtual.getFullYear()
-            &&
-            item.dataHora.getMonth() === dataAtual.getMonth()
-            && 
-            (
-                item.dataHora.getDate() > dataAtual.getDate() ||
-
-                item.dataHora.getDate() === dataAtual.getDate() &&
-                horaEvento > horaAtual 
-            )
+             item.dataHora > new Date()
         );
-    })
+    });
 
-    console.log("PROXIMOS EVENTOS: ", listaFiltrada);
-    return listaFiltrada;
+
+    const ordenaListaCresc = 
+        listaFiltrada.sort((a, b) => {
+            return a.dataHora - b.dataHora;
+        });
+
+
+    console.log("PROXIMOS EVENTOS: ", ordenaListaCresc[0]);
+    return ordenaListaCresc[0] ?? null;
 }
 
 
@@ -146,7 +132,7 @@ lista.forEach(item => {
 
 
 adicionarCampoDataHora();
-formatarDataHora();
-//listarProximoEvento();
+//formatarDataHora();
+listarProximoEvento();
 //listarEventosPorData(new Date("aaaa"));
 //listarEventosPorData(new Date("2026-08-16"));

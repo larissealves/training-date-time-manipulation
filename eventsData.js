@@ -65,10 +65,16 @@ export const eventos = [
     data: "16/08/2026",
     hora: "09:00"
   },
-   {
+  {
     id: 11,
-    nome: "Jantar",
+    nome: "Jantar sábado",
     data: "15/08/2026",
-    hora: "16:50"
+    hora: "19:50"
+  },
+  {
+    id: 13,
+    nome: "Jantar mais tarde",
+    data: "15/08/2026",
+    hora: "19:00"
   },
 ];
