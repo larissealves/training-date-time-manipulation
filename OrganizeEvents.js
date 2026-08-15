@@ -91,7 +91,33 @@ function listarEventosPorData(input_date) {
     return lista;
 }
 
+function listarProximoEvento() {
+    const lista = listarEventosOrganizados();
+
+    const dataAtual = new Date();
+    const horaAtual =  dataAtual.getHours() * 60 + dataAtual.getMinutes();
+
+    const listaFiltrada = lista.filter(item => {
+        const [horas, minutos ] = item.hora.split(":").map(Number);
+        const horaEvento = horas * 60 + minutos;
+
+        return (
+            item.dataHora.getFullYear() >= dataAtual.getFullYear() &&
+            item.dataHora.getMonth() >= dataAtual.getMonth() &&
+            item.dataHora.getDate() > dataAtual.getDate()  
+            || 
+            item.dataHora.getFullYear() >= dataAtual.getFullYear() &&
+            item.dataHora.getMonth() >= dataAtual.getMonth() &&
+            item.dataHora.getDate() >= dataAtual.getDate() &&
+            horaEvento > horaAtual
+        );
+    })
+
+    //console.log(listaFiltrada);
+}
+
 
 adicionarCampoDataHora();
-listarEventosPorData(new Date("aaaa"));
+listarProximoEvento();
+//listarEventosPorData(new Date("aaaa"));
 //listarEventosPorData(new Date("2026-08-16"));
