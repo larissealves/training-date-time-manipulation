@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+</html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script  type="module"  src="./app.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
+    </script>
+
+</head>
+
+<body class="grey lighten-4">
+
+    <nav class="blue">
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo">
+                Minha Agenda
+            </a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <!-- Próximo evento -->
+        <div class="section">
+            <h4>Próximo evento</h4>
+
+            <div class="card">
+                <div class="card-content">
+                    <span id="proximoEventoNome" class="card-title">
+                        Carregando...
+                    </span>
+
+                    <p>
+                        <i class="material-icons tiny">event</i>
+                        <span id="proximoEventoData"></span>
+                    </p>
+
+                    <p>
+                        <i class="material-icons tiny">access_time</i>
+                        <span id="proximoEventoHora"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de eventos do dia -->
+        <div class="section">
+            <h4>Eventos do dia </h4>
+
+            <div id="listaEventosDoDia">
+
+            </div>
+        </div>
+
+        <!-- Lista de eventos -->
+        <div class="section">
+            <h4>Eventos</h4>
+
+            <div id="listaEventos"></div>
+        </div>
+
+    </main>
+  
+</body>
+
+</html>

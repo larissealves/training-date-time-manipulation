@@ -56,7 +56,7 @@ function formatarDataHora() {
     return eventos;
 }
 
-function listarEventosOrganizados() {
+export function listarEventosOrganizados() {
     const lista = formatarDataHora();
 
     const listaOrdenada = lista.sort((a, b) => {
@@ -67,7 +67,7 @@ function listarEventosOrganizados() {
     return listaOrdenada;
 }
 
-function listarEventosPorData(input_date) {
+export function listarEventosPorData(input_date) {
     const lista = listarEventosOrganizados();
 
     const data = new Date(input_date);
@@ -88,7 +88,7 @@ function listarEventosPorData(input_date) {
     })
 
     console.log(listaFiltrada);
-    return lista;
+    return listaFiltrada;
 }
 
 function listarProximoEvento() {
