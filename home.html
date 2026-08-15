@@ -13,7 +13,7 @@
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <script  type="module"  src="./app.js" defer></script>
+    <script type="module" src="./app.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
     </script>
 
@@ -24,7 +24,7 @@
     <nav class="blue">
         <div class="nav-wrapper container">
             <a href="#" class="brand-logo">
-                Minha Agenda
+                Eventos
             </a>
         </div>
     </nav>
@@ -37,7 +37,7 @@
 
             <div class="card">
                 <div class="card-content">
-                    <span id="proximoEventoNome" class="card-title">
+                   <span id="proximoEventoNome" class="card-title">
                         Carregando...
                     </span>
 
@@ -57,9 +57,12 @@
         <!-- Lista de eventos do dia -->
         <div class="section">
             <h4>Eventos do dia </h4>
+            <div class="card">
+                <div class="card-content">
+                    <div id="listaEventosDoDia">
 
-            <div id="listaEventosDoDia">
-
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -67,11 +70,17 @@
         <div class="section">
             <h4>Eventos</h4>
 
-            <div id="listaEventos"></div>
+            <div class="card">
+                <div class="card-content">
+                    <div id="listaTodosEventos">
+
+                    </div>
+                </div>
+            </div>
         </div>
 
     </main>
-  
+
 </body>
 
 </html>

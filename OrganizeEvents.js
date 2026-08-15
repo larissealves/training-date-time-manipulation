@@ -39,7 +39,7 @@ function formatarDataHora() {
             const [dia, mes, ano] = item.data.split("/");
             const [horas, minutos] = item.hora.split(':');
 
-            const newDate = `${ano}-${mes}-${dia}`;
+            const newDate = `${ano}-${mes}-${dia} ${horas}:${minutos}` ;
             item.dataHora = new Date(newDate);
             item.dataHoraFormatoBr = item.dataHora.toLocaleString("pt-BR");
 
@@ -87,37 +87,46 @@ export function listarEventosPorData(input_date) {
         )
     })
 
-    console.log(listaFiltrada);
+    console.log("EVENTOS POR DIA: ", listaFiltrada);
     return listaFiltrada;
 }
 
-function listarProximoEvento() {
+export function listarProximoEvento() {
     const lista = listarEventosOrganizados();
 
     const dataAtual = new Date();
-    const horaAtual =  dataAtual.getHours() * 60 + dataAtual.getMinutes();
+    const horaAtual = dataAtual.getHours() * 60 + dataAtual.getMinutes();
 
     const listaFiltrada = lista.filter(item => {
-        const [horas, minutos ] = item.hora.split(":").map(Number);
+        const [horas, minutos] = item.hora.split(":").map(Number);
         const horaEvento = horas * 60 + minutos;
 
         return (
-            item.dataHora.getFullYear() >= dataAtual.getFullYear() &&
-            item.dataHora.getMonth() >= dataAtual.getMonth() &&
-            item.dataHora.getDate() > dataAtual.getDate()  
-            || 
-            item.dataHora.getFullYear() >= dataAtual.getFullYear() &&
-            item.dataHora.getMonth() >= dataAtual.getMonth() &&
-            item.dataHora.getDate() >= dataAtual.getDate() &&
-            horaEvento > horaAtual
+            item.dataHora.getFullYear() > dataAtual.getFullYear() ||
+
+            item.dataHora.getFullYear() === dataAtual.getFullYear()
+            &&
+            item.dataHora.getMonth() > dataAtual.getMonth() ||
+            
+            item.dataHora.getFullYear() === dataAtual.getFullYear()
+            &&
+            item.dataHora.getMonth() === dataAtual.getMonth()
+            && 
+            (
+                item.dataHora.getDate() > dataAtual.getDate() ||
+
+                item.dataHora.getDate() === dataAtual.getDate() &&
+                horaEvento > horaAtual 
+            )
         );
     })
 
-    //console.log(listaFiltrada);
+    console.log("PROXIMOS EVENTOS: ", listaFiltrada);
+    return listaFiltrada;
 }
 
 
 adicionarCampoDataHora();
-listarProximoEvento();
+//listarProximoEvento();
 //listarEventosPorData(new Date("aaaa"));
 //listarEventosPorData(new Date("2026-08-16"));
