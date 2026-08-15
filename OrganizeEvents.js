@@ -30,7 +30,7 @@ function formatarDataHora() {
             } else if (tamanhoSringTimestamp === 10) {
                 item.dataHora = new Date(timestamp * 1000);
                 item.dataHoraFormatoBr = item.dataHora.toLocaleString("pt-BR");
-            } 
+            }
             return;
         }
 
@@ -58,14 +58,40 @@ function formatarDataHora() {
 
 function listarEventosOrganizados() {
     const lista = formatarDataHora();
-    
-     const listaOrdenada = lista.sort((a, b) => {
+
+    const listaOrdenada = lista.sort((a, b) => {
         return b.dataHora - a.dataHora;
     });
 
-    console.log(listaOrdenada);
+    //console.log(listaOrdenada);
     return listaOrdenada;
 }
 
+function listarEventosPorData(input_date) {
+    const lista = listarEventosOrganizados();
+
+    const data = new Date(input_date);
+
+    const isValidDate = !isNaN(data.getTime());
+
+    if (!isValidDate) {
+        console.log("Data inválida: ", input_date);
+        return [];
+    }
+
+    const listaFiltrada = lista.filter(item => {
+        return (
+            item.dataHora.getFullYear() === input_date.getFullYear() &&
+            item.dataHora.getMonth() === input_date.getMonth() &&
+            item.dataHora.getDate() === input_date.getDate()
+        )
+    })
+
+    console.log(listaFiltrada);
+    return lista;
+}
+
+
 adicionarCampoDataHora();
-listarEventosOrganizados();
+listarEventosPorData(new Date("aaaa"));
+//listarEventosPorData(new Date("2026-08-16"));
