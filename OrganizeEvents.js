@@ -19,16 +19,18 @@ function adicionarCampoDataHora() {
 
 function formatarDataHora() {
     eventos.forEach(item => {
-
+        const [horas, minutos] = item.hora.split(':');
         // ========== Data timestamp - segundos e milissegundos ========== 
         const timestamp = Number(item.data);
         if (!Number.isNaN(timestamp)) {
             const tamanhoSringTimestamp = String(Math.trunc(timestamp)).length;
             if (tamanhoSringTimestamp === 13) {
                 item.dataHora = new Date(timestamp);
+                item.dataHora.setHours(horas, minutos);
                 item.dataHoraFormatoBr = item.dataHora.toLocaleString("pt-BR");
             } else if (tamanhoSringTimestamp === 10) {
                 item.dataHora = new Date(timestamp * 1000);
+                item.dataHora.setHours(horas, minutos);
                 item.dataHoraFormatoBr = item.dataHora.toLocaleString("pt-BR");
             }
             return;
@@ -37,9 +39,9 @@ function formatarDataHora() {
         // ========== Data short format (/ / /): 12/12/12 ========== 
         else if (typeof item.data === "string" && item.data.includes("/")) {
             const [dia, mes, ano] = item.data.split("/");
-            const [horas, minutos] = item.hora.split(':');
+            
 
-            const newDate = `${ano}-${mes}-${dia} ${horas}:${minutos}` ;
+            const newDate = `${ano}-${mes}-${dia}T${horas}:${minutos}` ;
             item.dataHora = new Date(newDate);
             item.dataHoraFormatoBr = item.dataHora.toLocaleString("pt-BR");
 
@@ -47,7 +49,7 @@ function formatarDataHora() {
         }
 
         else {
-            item.dataHora = new Date(item.data);
+            item.dataHora = new Date(`${item.data}T${horas}:${minutos}`);
             item.dataHoraFormatoBr = item.dataHora.toLocaleString("pt-BR");
         }
     });
